@@ -58,7 +58,7 @@ steps:
 
         🍭 **{{commit.message}}**
 
-        🔸 Repository: {{repo.owner}}/{{repo.name}}
+        🔸 Repository: ${DRONE_REPO}
 
         ☘️ Branch: ** {{commit.branch}} **
 
