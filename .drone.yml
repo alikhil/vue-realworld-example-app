@@ -1,0 +1,15 @@
+kind: pipeline
+type: docker
+name: imgproxy
+
+
+steps:
+  - name: yarn install
+    image: node:8.6
+    commands:
+      - yarn install
+
+  - name: lint
+    image:
+    commands:
+      - npm run lint
