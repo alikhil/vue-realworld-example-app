@@ -2,14 +2,36 @@ kind: pipeline
 type: docker
 name: imgproxy
 
+x-globals:
+  image: &node-image node:10.17
 
 steps:
   - name: yarn install
-    image: node:10.17
+    image: *node-image
     commands:
       - yarn install
 
   - name: lint
-    image: node:10.17
+    image: *node-image
     commands:
-      - npm run lint
+      - yarn lint
+
+  - name: test
+    image: *node-image
+    commands:
+      - yarn test
+
+  - name: yarn build
+    image: *node-image
+    commands:
+      - yarn build
+
+  - name: docker build
+    image: plugins/docker
+    settings:
+      repo: alikhil/vue-realworld-example-app
+      tags: ${DRONE_COMMIT_SHA}-${DRONE_COMMIT_BRANCH}
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
