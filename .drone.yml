@@ -10,6 +10,6 @@ steps:
       - yarn install
 
   - name: lint
-    image:
+    image: node:8.6
     commands:
       - npm run lint
