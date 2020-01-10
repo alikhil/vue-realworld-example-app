@@ -5,11 +5,11 @@ name: imgproxy
 
 steps:
   - name: yarn install
-    image: node:8.6
+    image: node:8.9
     commands:
       - yarn install
 
   - name: lint
-    image: node:8.6
+    image: node:8.9
     commands:
       - npm run lint
