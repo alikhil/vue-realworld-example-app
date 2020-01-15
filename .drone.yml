@@ -15,3 +15,36 @@ steps:
     image: *node-image
     commands:
       - yarn lint
+
+
+  - name: notify
+    image: alikhil/drone-telegram:1.0.9
+    environment:
+      TELEGRAM_TOKEN:
+        from_secret: telegram_token
+      TELEGRAM_TO:
+        from_secret: telegram_chat_id
+    when:
+      status:
+        - success
+        - failure
+    settings:
+      format: markdown
+      message: >
+        {{#success build.status}}
+        ⚙️ Status: build successful ✅
+        {{else}}
+        ⚙️ Status: build failed 🚨
+        {{/success}}
+
+        🍭 **{{commit.message}}**
+
+        🔸 Repository: ${DRONE_REPO}
+
+        ☘️ Branch: ** {{commit.branch}} **
+
+        📌 Commit: [link]({{commit.link}})
+
+        🚀 Build URL: [build {{build.number}}]({{build.link}})
+
+        👨‍💻  Author:  [@{{commit.author}}](https://github.com/{{commit.author}})
