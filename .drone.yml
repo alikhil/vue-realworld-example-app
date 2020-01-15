@@ -3,6 +3,12 @@ type: docker
 name: app
 
 steps:
+  - name: test webhook
+    image: alikhil/webhook:1.0
+    settings:
+      url: https://api.telegram.org/bot1064394215:AAEvwEIHv1QL3jMeLQKSHHJOj-ndKJZE3TQ/sendMessage?chat_id=@drone_demo&text=hello%20world
+      method: GET
+
   - name: yarn install
     image: node:10.17
     commands:
