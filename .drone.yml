@@ -1,0 +1,17 @@
+kind: pipeline
+type: docker
+name: app
+
+x-globals:
+  image: &node-image node:10.17
+
+steps:
+  - name: yarn install
+    image: *node-image
+    commands:
+      - yarn install
+
+  - name: lint
+    image: *node-image
+    commands:
+      - yarn lint
