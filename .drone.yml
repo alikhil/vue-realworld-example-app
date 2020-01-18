@@ -13,34 +13,8 @@ steps:
     commands:
       - yarn lint
 
-  - name: notify
-    image: alikhil/drone-telegram:1.0.9
-    environment:
-      TELEGRAM_TOKEN:
-        from_secret: telegram_token
-      TELEGRAM_TO:
-        from_secret: telegram_chat_id
-    when:
-      status:
-        - success
-        - failure
+  - name: test webhook
+    image: alikhil/webhook:1.0
     settings:
-      format: markdown
-      message: >
-        {{#success build.status}}
-        ⚙️ Status: build successful ✅
-        {{else}}
-        ⚙️ Status: build failed 🚨
-        {{/success}}
-
-        🍭 **{{commit.message}}**
-
-        🔸 Repository: ${DRONE_REPO}
-
-        ☘️ Branch: ** {{commit.branch}} **
-
-        📌 Commit: [link]({{commit.link}})
-
-        🚀 Build URL: [build {{build.number}}]({{build.link}})
-
-        👨‍💻  Author:  [@{{commit.author}}](https://github.com/{{commit.author}})
+      url: https://api.telegram.org/bot1064394215:AAEvwEIHv1QL3jMeLQKSHHJOj-ndKJZE3TQ/sendMessage?chat_id=@drone_demo&text=hello%20world
+      method: GET
