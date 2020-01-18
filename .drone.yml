@@ -1,0 +1,14 @@
+kind: pipeline
+type: docker
+name: app
+
+steps:
+  - name: yarn install
+    image: node:10.17
+    commands:
+      - yarn install
+
+  - name: lint
+    image: node:10.17
+    commands:
+      - yarn lint
